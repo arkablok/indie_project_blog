@@ -12,7 +12,7 @@
                 <th class="text-start p-2">Slug</th>
                 <th class="text-end p-2">Content</th>
                 <th class="text-end p-2">Date</th>
-                <th class="text-end p-2">Delete</th>
+                <th class="text-end p-2">Aksi</th>
             </tr>
             @foreach ($posts as $item)
                 <tr class="text-sm odd:bg-white">
@@ -37,10 +37,10 @@
                         <div x-cloak x-transition
                             class="absolute  right-1 z-10 top-2 -translate-x-3 rounded-lg p-3 bg-black shadow-lg"
                             x-show="open">
-                            <form action="{{ route('post.delete', $item->slug) }}" method="post">
+                            <form action="{{ route('post.delete', $item->slug) }}" method="post" class="delete-form">
                                 @csrf
                                 @method('delete')
-                                <button class="w-full py-2 hover:bg-red-500 text-white bg-red-400 rounded-lg mb-1"
+                                <button class="w-full py-2 hover:bg-red-500 text-white bg-red-400 rounded-lg mb-1 delete-btn"
                                     type="submit">Delete</button>
                             </form>
                             <form action="{{ route('post.toggle', $item->slug) }}" method="post">
@@ -48,12 +48,6 @@
                                 @method('PATCH')
                                 <button class="w-full py-2 hover:bg-blue-500 text-white bg-blue-400 rounded-lg mb-1"
                                     type="submit">{{ $item->is_active ? 'Disable' : 'Enable' }}</button>
-                            </form>
-                            <form class="mb-1" action="{{ route('post.feature', $item->slug) }}" method="post">
-                                @csrf
-                                @method('PATCH')
-                                <button class="w-full py-2 px-2 hover:bg-green-500 text-white bg-green-400 rounded-lg mb-1"
-                                    type="submit">{{ $item->is_featured ? 'Featured' : 'Unfeatured' }}</button>
                             </form>
                             @if ($item->user->id == auth()->user()->id)
                                 <a class="w-full px-2  py-2 hover:bg-indigo-500 text-white bg-indigo-400 rounded-lg mb-1"
@@ -70,7 +64,33 @@
      
     </div>
   
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+    var deleteButtons = document.querySelectorAll('.delete-btn');
 
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            event.preventDefault(); // Mencegah aksi default tombol delete
+            // Tampilkan konfirmasi SweetAlert
+            Swal.fire({
+                title: 'Apa Kamu Yakin',
+                text: 'Kamu ingin menghapus postingan',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit formulir jika pengguna mengonfirmasi
+                    button.closest('.delete-form').submit();
+                }
+            });
+        });
+    });
+});
+</script>
 @endsection
 
 

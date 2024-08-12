@@ -19,7 +19,7 @@
             <label class="ml-2 font-semibold" for="remember">Remember me</label>
         </div>
        <div class="flex justify-center items-center">
-        <button class=" bg-indigo-600 text-white text-lg px-6 py-2 font-semibold rounded-lg hover:bg-blue-600" >Login</button>
+        <button class="btn btn-primary text-white py-3 px-4" >Login</button>
        </div>
         <p class="text-sm text-center">Don't have an account?<a class="text-blue-600" href="{{ route('signup') }}">Signup</a></p>
     </form>

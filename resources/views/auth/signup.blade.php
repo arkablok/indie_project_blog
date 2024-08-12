@@ -18,7 +18,7 @@
         <x-input-field  placeholder="Confirm Password" type="password" name="password_confirmation"  />
         @error('password_confirmation') <x-alerts.error :$message /> @enderror
        <div class="flex items-center justify-center">
-        <button class="bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-indigo-600" >Signup</button>
+        <button class="btn btn-primary text-white py-3 px-4" >Signup</button>
        </div>
        <p class="text-center ">Already have an account? <a href="{{ route('login') }}" class="text-blue-500">Login</a></p>
     </form>

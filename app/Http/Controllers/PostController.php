@@ -10,10 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function index(){
-        return view('admin.create-post',[
+    public function index() {
+        return view('admin.read-post');
+    }
+
+    public function post(){
+        return view('admin.create-post', [
             "name" => "Create Post",
-            
         ]);
     }
 
@@ -68,7 +71,6 @@ class PostController extends Controller
     }
 
     public function destroy(Post $post){
-        $this->authorize('delete',$post);
         $post->delete();
         return back();
     }
@@ -93,13 +95,27 @@ class PostController extends Controller
             
     //     ]);
     // }
+//     public function search(Request $request) {
+//     $query = $request->input('search');
     
+//     if ($query) {
+//         $posts = Post::where('title', 'like', '%' . $query . '%')->get();
+//     } else {
+//         $posts = Post::all();
+//     }
+
+//     return view('post/', ['posts' => $posts, 'query' => $query]);
+// }
+
     public function read(Post $post){
+        $comments = Comment::where('post_id', $post->id)->get();
         
         return view('admin.read-posts', [
-           'post'=> $post->load('comments')  
+           'post' => $post,
+           'comments' => $comments
         ]);
     }
+    
 
     
 

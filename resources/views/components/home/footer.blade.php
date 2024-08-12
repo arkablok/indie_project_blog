@@ -39,7 +39,7 @@
            </div>
        </div>
        <div class="mb-20 mt-2">
-            <p class="flex items-center justify-center mb-3">Copyright ©2023 All rights reserved | This template is made with <img src="https://api.iconify.design/material-symbols:favorite-rounded.svg?color=%23000000" width="20px">  by <span class="hover:underline hover:decoration-orange-400">Colorlib</span></p>
+            <p class="flex items-center justify-center mb-3">Copyright ©2023 All rights reserved | This template is modified <img src="https://api.iconify.design/material-symbols:favorite-rounded.svg?color=%23000000" width="20px">  by <span class="hover:underline hover:decoration-orange-400">Ihpaz Laga Sukanda</span></p>
             <p class="text-center mt-2">Terms & Conditions/ Privacy Policy</p>
        </div>
 </div>

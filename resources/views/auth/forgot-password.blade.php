@@ -12,7 +12,7 @@
         @csrf
         <x-input-field  placeholder="Email" type="email" name="email"  />
         @error('email') <x-alerts.error :$message /> @enderror
-        <button type="submit" class="bg-blue-600 rounded-lg text-white font-semibold px-4 py-2" >Reset</button>
+        <button type="submit" class="btn btn-primary text-white py-3 px-4" >Reset</button>
     </form>
    </div>
 @endsection

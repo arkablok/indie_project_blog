@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index(){
         return view('welcome',[
-            'posts'=>Post::latest()->with(['user'])->get(),
-            'feature'=> Post::where('is_featured',true)->first()
+            'posts' => Post::latest()->with(['user'])->paginate(9),
+            'feature'=> Post::where('is_featured',true)->first(),
+            'users' => User::latest()->paginate(5)
+
         ]);
     }
 

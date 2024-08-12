@@ -26,6 +26,7 @@ class Post extends Model
     }
 
     public function comments(){
-        return $this->hasMany(Comment::class)->where('is_published',true);
+        return $this->hasMany(Comment::class, 'post_id', 'id')
+        ->where('is_published',true);
     }
 }

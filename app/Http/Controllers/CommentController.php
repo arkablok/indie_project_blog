@@ -9,10 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function comments()
+    public function index()
     {
         $comments = Comment::all();
-     
         return view('admin.read-posts', compact('comments'));
     }
 

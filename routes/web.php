@@ -26,12 +26,16 @@ Route::post('login',[LoginController::class,'store']);
 
 Route::middleware(['auth','is_admin'])->prefix('admin')->group(function(){
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
-    Route::get('/create-post',[PostController::class,'index'])->name('create.post');
+    Route::get('dashboard/list',[DashboardController::class,'user'])->name('user.data');
+    Route::get('/read-post',[PostController::class,'index'])->name('read.post');
+    Route::get('/create-post',[PostController::class,'post'])->name('create.post');
     Route::post('/create-post/upload',[PostController::class,'store'])->name('create.post.upload');
     Route::get('/read-post',[PostController::class,'save'])->name('read.post');
     Route::patch('/toggle-post/{post:slug}',[PostController::class,'toggle'])->name('post.toggle');   
     Route::get('/read-post',[PostController::class,'save'])->name('read.post');
     Route::patch('/feature-post/{post:Slug}',[PostController::class,'feature'])->name('post.feature');
+    Route::put('/users/{id}/make-admin', [DashboardController::class, 'makeAdmin'])->name('admin.make-admin');
+    Route::put('/users/remove-admin/{id}', [DashboardController::class, 'removeAdmin'])->name('admin.remove-admin');
 });
 
 // Post Read
@@ -51,12 +55,6 @@ Route::get('/view-content/{post:slug}',[PostController::class,'content'])->name(
 Route::get('/post/update/{post:slug}',[PostController::class,'update'])->name('post.update')->middleware('auth');
 Route::patch('/post/update/{post:slug}/now',[PostController::class,'update_post'])->name('post.update.now')->middleware('auth');
 
-// Ckeditor Route
-
-Route::get('ckeditor', [CkeditorController::class, 'index']);
-Route::post('ckeditor/upload', [CkeditorController::class, 'upload'])->name('ckeditor.upload');
-
-    // Route::post('/upload',[PostController::class,'upload'])->name('ckeditor.upload');
 
 // Forgot and Reset Controller
 
@@ -70,17 +68,6 @@ Route::post('/reset-password',[ResetController::class,'token'])->middleware('gue
 
 Route::post('/logout',[LogoutController::class,'destroy'])->name('logout')->middleware('auth');
 
-//Check length
-
-Route::get('length',function(){
-    return strlen('Your most unhappy <br>customers are your greatest <br> source of learning.');
-});
-
-Route::get('len',function(){
-    return strlen('Far far away, behind the word mountains, far from the countries Vokalia and
-     Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the
-    coast of the Semantics, a large language ocean.');
-});
 
 // Comments Route
 
@@ -89,3 +76,7 @@ Route::get('len',function(){
  // Update Comments
 
  Route::patch('/comments/{comment:comment_num}/{slug}', [CommentController::class, 'update_comments'])->name('comments.update');
+
+ // search
+
+ Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');

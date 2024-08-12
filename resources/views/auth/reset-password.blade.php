@@ -12,7 +12,7 @@
         @error('password') <x-alerts.error :$message /> @enderror
         <x-input-field  placeholder="Confirm New Password" type="password" name="password_confirmation"  />
         @error('password_confirmation') <x-alerts.error :$message /> @enderror
-        <button type="submit" class="bg-blue-600 text-white  px-4 py-2" >Reset Now</button>
+        <button type="submit" class="btn btn-primary text-white py-3 px-4" >Reset Now</button>
     </form>
    </div>
 @endsection

@@ -11,60 +11,39 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        return view('admin.dashboard',[
-            'users' => User::latest()->paginate(5)
-        ]);
+        $users = User::latest()->paginate(5);
+
+        return view('admin.dashboard', compact('users'));
     }
 
     public function see(){
         return view('admin.view-image');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function makeAdmin($id)
     {
-        //
+        $user = User::findOrFail($id); // Menemukan user berdasarkan ID
+
+        $user->is_admin = true; // Mengatur is_admin menjadi true (1) untuk menandai sebagai admin
+        $user->save(); // Menyimpan perubahan
+
+        return redirect()->back()->with('success', 'User berhasil dijadikan admin!');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Method untuk menghapus status admin dari user
+    public function removeAdmin($id)
     {
-        //
-    }
+        if ($id != 1) { // Misalnya, ID 1 adalah pengguna yang tidak dapat dihapus dari status admin
+            $user = User::findOrFail($id); // Menemukan user berdasarkan ID
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+            $user->is_admin = false; // Mengatur is_admin menjadi false (0) untuk menghapus status admin
+            $user->save(); // Menyimpan perubahan
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            $text = 'User berhasil diremove sebagai admin!';
+    
+            return redirect()->back()->with('success', $text);
+        } else {
+            return redirect()->back()->with('error', 'User tidak dapat diremove dari status admin');
+        }
     }
 }
